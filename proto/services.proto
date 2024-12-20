@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+service ProductService {
+    rpc GetProduct (ProductRequest) returns (ProductResponse);
+}
+
+service UserService {
+    rpc GetUser (UserRequest) returns (UserResponse);
+}
+
+service OrderService {
+    rpc CreateOrder (OrderRequest) returns (OrderResponse);
+}
+
+service AddressService {
+    rpc GetAddress (AddressRequest) returns (AddressResponse);
+}
+
+// Messages
+message ProductRequest {
+    string productId = 1;
+}
+
+message ProductResponse {
+    string productId = 1;
+    string name = 2;
+    double price = 3;
+}
+
+message UserRequest {
+    string userId = 1;
+}
+
+message UserResponse {
+    string userId = 1;
+    string name = 2;
+    string email = 3;
+}
+
+message AddressResponse {
+    string addressId = 1;
+    string name = 2;
+}
+
+message AddressRequest {
+    string addressId = 1;
+}
+
+message OrderRequest {
+    string orderId = 1;
+    string userId = 2;
+    repeated string productIds = 3;
+}
+
+message OrderResponse {
+    string orderId = 1;
+    string status = 2;
+}
