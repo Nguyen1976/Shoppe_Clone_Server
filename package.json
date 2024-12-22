@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"npm start --prefix ProductService\" \"npm start --prefix UserService\" \"npm start --prefix OrderService\" \"npm start --prefix AddressService\""
+    "start": "concurrently \"npm start --prefix UserService\"",
+    "client": "npm start --prefix client"
   },
   "keywords": [],
   "author": "",
