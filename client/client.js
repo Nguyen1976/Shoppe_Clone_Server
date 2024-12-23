@@ -30,7 +30,7 @@ const userClient = new proto.UserService(
 app.post("/api/user/sign-up", (req, res) => {
   const { name, email, password, confirmPassword } = req.body;
   userClient.createUser(
-    {name, email, password, confirmPassword },
+    { name, email, password, confirmPassword },
     (error, response) => {
       if (error) {
         return res.status(500).json({ message: error.message });
@@ -38,6 +38,16 @@ app.post("/api/user/sign-up", (req, res) => {
       return res.status(200).json(response);
     }
   );
+});
+
+app.post("/api/user/sign-in", (req, res) => {
+  const { email, password } = req.body;
+  userClient.loginUser({ email, password }, (error, response) => {
+    if (error) {
+      return res.status(500).json({ message: error.message });
+    }
+    return res.status(200).json(response);
+  });
 });
 
 app.listen(3000, () => {

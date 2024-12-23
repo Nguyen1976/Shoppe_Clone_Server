@@ -1,11 +1,13 @@
-// server/index.js
+const userService = require("./src/services/userService");
+const dotenv = require("dotenv");
+dotenv.config();
+
 const grpc = require("@grpc/grpc-js");
 const protoLoader = require("@grpc/proto-loader");
 
 const packageDefinition = protoLoader.loadSync("../proto/services.proto");
 const proto = grpc.loadPackageDefinition(packageDefinition);
 
-const userService = require("./src/services/userService");
 
 const server = new grpc.Server();
 server.addService(proto.UserService.service, userService);

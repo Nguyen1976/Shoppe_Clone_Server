@@ -1,6 +1,7 @@
 syntax = "proto3";
 service UserService {
     rpc createUser (createUserRequest) returns (createUserResponse);
+    rpc loginUser (loginUserRequest) returns (loginUserResponse);
 }
 
 
@@ -16,3 +17,14 @@ message createUserResponse {
     string email = 2;
 }
 
+message loginUserRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message loginUserResponse {
+    string name = 1;
+    string email = 2;
+    string accessToken = 3;
+    string refreshToken = 4;
+}
