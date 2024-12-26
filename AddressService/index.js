@@ -1,4 +1,4 @@
-const GrpcService = require("./src/services/grpcService");
+const GrpcService = require("./src/services/GrpcService");
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
@@ -14,7 +14,7 @@ const proto = grpc.loadPackageDefinition(packageDefinition);
 
 // Khởi tạo API Express
 const app = express();
-const apiPort = 3001;
+const apiPort = 3002;
 
 // Middleware cho API
 app.use(cors());
@@ -23,15 +23,15 @@ app.use(express.urlencoded({ extended: true }));
 
 // Dùng router cho các API
 const router = require("./src/routes/index.js");
-app.use("/api/user", router);
+app.use("/api/address", router);
 
 app.get("/", (req, res) => {
-  res.json({ message: "UserService API is running" });
+  res.json({ message: "AddressService API is running" });
 });
 
 // Khởi tạo gRPC server
 const grpcServer = new grpc.Server();
-grpcServer.addService(proto.UserService.service, GrpcService);
+grpcServer.addService(proto.AddressService.service, GrpcService);
 
 // Hàm khởi động API server
 const startApiServer = () => {
@@ -47,14 +47,14 @@ const startApiServer = () => {
 const startGrpcServer = () => {
   return new Promise((resolve, reject) => {
     grpcServer.bindAsync(
-      "0.0.0.0:50051",
+      "0.0.0.0:50052",
       grpc.ServerCredentials.createInsecure(),
       (err, port) => {
         if (err) {
           reject(err);
         } else {
           console.log(`gRPC Server running on port ${port}`);
-        //   grpcServer.start();//Việc gọi start đã được sử lý khi bindAsync().
+          //   grpcServer.start();//Việc gọi start đã được sử lý khi bindAsync().
           resolve();
         }
       }
